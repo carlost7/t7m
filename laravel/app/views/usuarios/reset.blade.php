@@ -13,7 +13,6 @@
 <div class="jumbotron">
 
       <div class="container">
-            <h1>Casí listo</h1>
             <h3>Rellena los campos para regenerar tu contraseña</h3>            
       </div>
 

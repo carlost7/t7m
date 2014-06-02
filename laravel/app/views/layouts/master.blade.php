@@ -35,18 +35,10 @@
                                     <span class="icon-bar"></span>
                               </button>
 
-                              {{ HTML::linkRoute('inicio','Primer Server',null,array('class'=>'navbar-brand')) ;}}"
+                              {{ HTML::linkRoute('inicio','T7Marketing',null,array('class'=>'navbar-brand')) ;}}"
                         </div>
 
                         <div class="navbar-collapse collapse">
-                              <ul class="nav navbar-nav">  
-                                    <li>
-                                          {{ HTML::linkRoute('nosotros','Nosotros') ;}}
-                                    </li>
-                                    <li>
-                                          {{ HTML::linkRoute('contacto','Contáctanos') ;}}                                    
-                                    </li>                        
-                              </ul>
                               @if(Auth::check())
                               <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown">
@@ -56,25 +48,12 @@
                                                 <li>{{ Html::linkRoute('admin.usuarios.index','Usuarios') ;}}</li> 
                                                 <li>{{ Html::linkRoute('admin.planes.index','Planes') ;}}</li> 
                                                 @else
-                                                <li>{{ Html::linkRoute('usuario/inicio','Inicio') ;}}</li>
-                                                <li>{{ Html::linkRoute('pagos/inicio','Pagos') ;}}</li>
+                                                <li>{{ Html::linkRoute('usuario.inicio','Inicio') ;}}</li>
                                                 @endif                                                
-                                                <li>{{ Html::linkRoute('usuario/logout','Salir') ;}}</li>                                 
+                                                <li>{{ Html::linkRoute('usuario.logout','Salir') ;}}</li>                                 
                                           </ul>
                                     </li>
-                              </ul>
-                              @else
-                              {{ Form::open(array('url'=>'usuario/login','class'=>'navbar-form navbar-right','role'=>'form')) ;}}
-
-                              <div class="form-group">
-                                    <input type="text" name="correo" placeholder="Email" class="form-control">
-                              </div>
-                              <div class="form-group">
-                                    <input type="password" name="password" placeholder="Password" class="form-control">
-                              </div>
-                              <button type="submit" class="btn btn-success">Entrar</button>
-
-                              {{ Form::close() ;}}
+                              </ul>                              
                               @endif
                         </div><!--/.navbar-collapse -->
                   </div>

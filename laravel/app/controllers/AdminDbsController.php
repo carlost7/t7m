@@ -27,7 +27,7 @@ class AdminDbsController extends \BaseController {
             }
             else
             {
-                  Session::flash('error' . 'El plan del usuario no tiene bases de datos');
+                  Session::flash('error' , 'El plan del usuario no tiene bases de datos');
                   return Redirect::back();
             }
       }

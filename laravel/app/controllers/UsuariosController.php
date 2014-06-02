@@ -42,7 +42,7 @@ class UsuariosController extends BaseController {
                               else
                               {
                                     Session::put('dominio', Auth::user()->dominio);
-                                    return Redirect::route('usuario/inicio');
+                                    return Redirect::route('usuario.index');
                               }
                         }
                         else
@@ -54,7 +54,7 @@ class UsuariosController extends BaseController {
                   {
                         $messages = $validator->messages();
                   }
-                  return Redirect::route('usuario/login')->withInput()->withErrors($messages);
+                  return Redirect::route('usuario.login')->withInput()->withErrors($messages);
             }
 
             return View::make('usuarios.entrar');
@@ -78,89 +78,7 @@ class UsuariosController extends BaseController {
             return View::make('usuarios.problemas');
       }
 
-      /*
-       * Funcion para modificar el password
-       */
-
-      public function cambiarPasswordUsuario()
-      {
-
-            if ($this->isPostRequest())
-            {
-                  $validator = $this->getCambioPasswordValidator();
-                  if ($validator->passes())
-                  {
-                        if (strlen(Input::get('old_password')) > 0 && !Hash::check(Auth::user()->password, Input::get('old_password')))
-                        {
-                              $usuario = Auth::user();
-                              if ($this->Usuario->editarUsuario($usuario->id, null, Input::get('password'), null, null, null, null))
-                              {
-                                    Session::flash('message', 'Cambio de contraseña correcto');
-                                    if (Auth::User()->is_admin)
-                                    {
-                                          return Redirect::to('admin/usuarios');
-                                    }
-                                    else
-                                    {
-                                          return Redirect::to('usuario/inicio');
-                                    }
-                              }
-                              else
-                              {
-                                    Session::flash('error', 'Error al cambiar la contraseña');
-                              }
-                        }
-                        else
-                        {
-                              Session::flash('error', 'El password anterior no coincide con los datos de la base');
-                        }
-                  }
-                  return Redirect::back()->withErrors($validator)->withInput();
-            }
-            else
-            {
-                  return View::make('usuarios.cambiar_password');
-            }
-      }
-
-      /*
-       * Funcion para modificar el correo
-       */
-
-      public function cambiarCorreoUsuario()
-      {
-
-            if ($this->isPostRequest())
-            {
-                  $validator = $this->getCambioCorreoValidator();
-                  if ($validator->passes())
-                  {
-                        if (strlen(Input::get('password')) > 0 && !Hash::check(Auth::user()->password, Input::get('password')))
-                        {
-                              $usuario = Auth::user();
-                              if ($this->Usuario->editarUsuario($usuario->id, null, Input::get('new_email'), null, null, null, null))
-                              {
-                                    Session::flash('message', 'Tu correo se ha actualizado');
-                                    return Redirect::to('usuario/inicio');
-                              }
-                              else
-                              {
-                                    Session::flash('error', 'Error al cambiar la contraseña');
-                              }
-                        }
-                        else
-                        {
-                              Session::flash('error', 'El password anterior no coincide con los datos de la base');
-                        }
-                  }
-                  return Redirect::back()->withErrors($validator->messages())->withInput();
-            }
-            else
-            {
-                  return View::make('usuarios.cambiar_correo');
-            }
-      }
-
+      
       /*
        * Funcion para recuperar contraseña perdida
        */
@@ -299,6 +217,51 @@ class UsuariosController extends BaseController {
                         'old_email' => 'required|email',
                         'new_email' => 'required|email',
             ));
+      }
+      
+      public function obtenerPass()
+      {
+            $length = 9;
+            $available_sets = 'luds';
+            $sets = array();
+            if (strpos($available_sets, 'l') !== false)
+            {
+                  $sets[] = 'abcdefghjkmnpqrstuvwxyz';
+            }
+            if (strpos($available_sets, 'u') !== false)
+            {
+                  $sets[] = 'ABCDEFGHJKMNPQRSTUVWXYZ';
+            }
+            if (strpos($available_sets, 'd') !== false)
+            {
+                  $sets[] = '23456789';
+            }
+            if (strpos($available_sets, 's') !== false)
+            {
+                  $sets[] = '!#$*';
+            }
+
+
+            $all = '';
+            $password = '';
+            foreach ($sets as $set)
+            {
+                  $password .= $set[array_rand(str_split($set))];
+                  $all .= $set;
+            }
+
+            $all = str_split($all);
+            for ($i = 0; $i < $length - count($sets); $i++)
+            {
+                  $password .= $all[array_rand($all)];
+            }
+
+
+            $password = str_shuffle($password);
+
+            $response = array('password' => $password);
+
+            return Response::json($response);
       }
 
 }

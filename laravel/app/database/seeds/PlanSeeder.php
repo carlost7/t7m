@@ -12,8 +12,8 @@ class PlanSeeder extends DatabaseSeeder {
             $planes = array(
                   array(
                         "nombre" => "básico",
-                        "domain" => "psbasic.com",
-                        "name_server" => "psbasic",
+                        "domain" => "t7basic.com",
+                        "name_server" => "t7basic",
                         "numero_correos" => 10,
                         "quota_correos" => 1000,
                         "numero_ftps" => 1,
@@ -23,9 +23,9 @@ class PlanSeeder extends DatabaseSeeder {
                   ),
                   array(
                         "nombre" => "startup",
-                        "domain" => "psstartup.com",
-                        "name_server" => "psstart",
-                        "numero_correos" => 50,
+                        "domain" => "t7startup.com",
+                        "name_server" => "t7start",
+                        "numero_correos" => 20,
                         "quota_correos" => 1000,
                         "numero_ftps" => 1,
                         "quota_ftps" => 5000,
@@ -34,8 +34,8 @@ class PlanSeeder extends DatabaseSeeder {
                   ),
                   array(
                         "nombre" => "enterprise",
-                        "domain" => "psenterprise.com",
-                        "name_server" => "psent",
+                        "domain" => "t7ent.com",
+                        "name_server" => "t7ent",
                         "numero_correos" => 1000,
                         "quota_correos" => 2000,
                         "numero_ftps" => 1,

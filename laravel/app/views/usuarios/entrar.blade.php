@@ -14,15 +14,12 @@
 
       <div class="container">
             <h1>Escribe tus datos para entrar</h1>
-            <h3>Si aun no eres usuario</h3>
-            <p>{{ HTML::linkRoute('dominio/inicio','Registrate',null,array('class'=>'btn btn-primary btn-lg')) }}</p>
-            <h3>Si olvidaste tu contraseña</h3>
-            <p>{{ HTML::linkRoute('usuario/recuperar','Recuperar Contraseña',null,array('class'=>'btn btn-danger btn-lg')) }}</p>                
+            
       </div>
 </div>
 <div class="container">
 
-      {{ Form::open(array('url'=>'usuario/login')) }}
+      {{ Form::open(array('route'=>'usuario.login')) }}
       @if($errors->has())
       @foreach ($errors->all() as $error)
       <div class="alert alert-danger">{{ $error }}</div>
@@ -44,7 +41,8 @@
                   </label>
             </div>
       </div>                  
-      <button type="submit" id='confirmar' class="btn btn-success btn-lg">Entrar</button>        
+      <button type="submit" id='confirmar' class="btn btn-success btn-md">Entrar</button>        
+      {{ HTML::linkRoute('usuario.recuperar','Recuperar Contraseña',null,array('class'=>'btn btn-danger btn-md')) }}
       {{ Form::close() }}
 </div>
 

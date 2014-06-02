@@ -91,10 +91,7 @@ class PlanRepositoryEloquent implements PlanRepository {
                   $plan->numero_ftps = $numero_ftps;
                   $plan->quota_ftps = $quota_ftps;
                   $plan->numero_dbs = $numero_dbs;
-                  $plan->quota_dbs = $quota_dbs;
-                  $plan->costo_anual = $costo_anual;
-                  $plan->costo_mensual = $costo_mensual;
-                  $plan->moneda = $moneda;
+                  $plan->quota_dbs = $quota_dbs;                  
                   if ($plan->save())
                   {
                         return true;

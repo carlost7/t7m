@@ -28,10 +28,7 @@ class RepositoriesServiceProvider extends ServiceProvider {
             );
             $this->app->bind(
                   'PlanRepository', 'PlanRepositoryEloquent'
-            );
-            $this->app->bind(
-                  'PagosRepository', 'PagosRepositoryMercadoPago'
-            );
+            );            
       }
 
 }

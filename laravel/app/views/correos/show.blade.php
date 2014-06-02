@@ -31,7 +31,7 @@
 </div>
 
 
-@include('layouts.menu_usuario', array('activo'=>'correos'))
+
 
 @stop
 

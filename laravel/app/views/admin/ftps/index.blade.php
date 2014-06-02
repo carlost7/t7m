@@ -11,7 +11,7 @@
 @section('content')
 <div class="jumbotron">
       <div class="container">
-            <h2>FTP's</h2>
+            <h2>{{ HTML::linkRoute('admin.usuarios.index','Usuarios') }} > FTP's</h2>
             <p>{{ HTML::linkRoute('admin.ftps.create','Agregar Ftp',null,array('class'=>'btn btn-primary btn-lg')) }}</p>
       </div>
 </div>
