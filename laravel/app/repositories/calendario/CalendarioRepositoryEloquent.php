@@ -5,8 +5,7 @@
  *
  * @author carlos
  */
-class CalendarioRepositoryEloquent implements CalendarioRepository
-{
+class CalendarioRepositoryEloquent implements CalendarioRepository {
 
       public function agregarCalendario($dominio, $inicio, $fin, $registrador)
       {
@@ -17,7 +16,7 @@ class CalendarioRepositoryEloquent implements CalendarioRepository
                   $calendario->inicio = new DateTime($inicio);
                   $calendario->fin = new DateTime($fin);
                   $calendario->registrador = $registrador;
-                  
+
                   if ($calendario->save())
                   {
                         return $calendario;
@@ -30,7 +29,7 @@ class CalendarioRepositoryEloquent implements CalendarioRepository
             catch (Exception $e)
             {
                   Log::error('AgregarCalendario. ' . print_r($e, true));
-                  Session::put('error',print_r($e));
+                  Session::put('error', print_r($e));
                   return null;
             }
       }
@@ -103,6 +102,14 @@ class CalendarioRepositoryEloquent implements CalendarioRepository
       public function obtenerCalendario($id)
       {
             return CalendarioDominio::find($id);
+      }
+
+      public function obtenerDominiosPorVencer()
+      {
+            //Obtenemos los registros que esten entre hoy y 5 dias en el futuro
+            $now = Carbon\Carbon::now();
+            $daysLater = Carbon\Carbon::now()->addDays(5);            
+            return CalendarioDominio::whereBetween('fin',array($now,$daysLater))->get();            
       }
 
 }

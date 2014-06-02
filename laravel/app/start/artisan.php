@@ -11,3 +11,7 @@
 |
 */
 
+
+$calendario = new CalendarioRepositoryEloquent();
+
+Artisan::add(new dominiosRenovacionCommand($calendario));

@@ -16,5 +16,7 @@ interface CalendarioRepository {
       public function editarCalendario($id, $dominio, $inicio, $fin, $registrador);
 
       public function eliminarCalendario($calendario_model);
+      
+      public function obtenerDominiosPorVencer();
 
 }
