@@ -14,10 +14,10 @@ class CalendarioRepositoryEloquent implements CalendarioRepository
             {
                   $calendario = new CalendarioDominio();
                   $calendario->dominio = $dominio;
-                  $calendario->inicio = $inicio;
-                  $calendario->fin = $fin;
+                  $calendario->inicio = new DateTime($inicio);
+                  $calendario->fin = new DateTime($fin);
                   $calendario->registrador = $registrador;
-
+                  
                   if ($calendario->save())
                   {
                         return $calendario;
@@ -30,6 +30,8 @@ class CalendarioRepositoryEloquent implements CalendarioRepository
             catch (Exception $e)
             {
                   Log::error('AgregarCalendario. ' . print_r($e, true));
+                  Session::put('error',print_r($e));
+                  return null;
             }
       }
 
@@ -49,12 +51,12 @@ class CalendarioRepositoryEloquent implements CalendarioRepository
                         if (isset($inicio))
                         {
 
-                              $calendario->inicio = $inicio;
+                              $calendario->inicio = new DateTime($inicio);
                         }
                         if (isset($fin))
                         {
 
-                              $calendario->fin = $fin;
+                              $calendario->fin = new DateTime($fin);
                         }
                         if (isset($registrador))
                         {

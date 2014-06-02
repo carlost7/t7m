@@ -11,7 +11,7 @@
 @section('content')
 <div class="jumbotron">
       <div class="container">
-            <h2>{{ HTML::linkRoute('admin.calendarios.index','Calendario') }}</h2>
+            <h2>Calendario de Dominios</h2>
             <br />
             <p>{{ HTML::linkRoute('admin.calendarios.create','Agregar Dominio ',null,array('class'=>'btn btn-primary btn-lg')) }}</p>            
       </div>
@@ -31,7 +31,7 @@
                               <th>Editar</th>
                               <th>Eliminar</th>
                         </tr>
-                        @foreach($calendario as $calendarios)
+                        @foreach($calendarios as $calendario)
                         <tr>
 
                               <td>{{ $calendario->dominio }}</td>

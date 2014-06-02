@@ -15,6 +15,7 @@
             <meta name="viewport" content="width=device-width">
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
+            {{ HTML::style('css/datepicker.css') }}
             {{ HTML::style('css/main.css') }}
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
             <script>
@@ -47,6 +48,7 @@
                                                 @if(Auth::user()->is_admin)
                                                 <li>{{ Html::linkRoute('admin.usuarios.index','Usuarios') ;}}</li> 
                                                 <li>{{ Html::linkRoute('admin.planes.index','Planes') ;}}</li> 
+                                                <li>{{ Html::linkRoute('admin.calendarios.index','Calendario Dominios') ;}}</li> 
                                                 @else
                                                 <li>{{ Html::linkRoute('usuario.inicio','Inicio') ;}}</li>
                                                 @endif                                                
@@ -78,6 +80,7 @@
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
             {{ HTML::script('js/vendor/bootstrap.min.js') }}
+            {{ HTML::script('js/vendor/bootstrap-datepicker.js') }}
             {{ HTML::script('js/main.js') }}
             @section('scripts')
 

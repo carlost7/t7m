@@ -5,6 +5,8 @@ use DominioRepository as Dominio;
 use FtpsRepository as Ftp;
 use CorreosRepository as Correo;
 use PlanRepository as Plan;
+use CalendarioRepository as Calendario;
+use Carbon\Carbon as Carbon;
 
 class AdminUsersController extends \BaseController {
 
@@ -13,14 +15,16 @@ class AdminUsersController extends \BaseController {
       protected $Ftp;
       protected $Correo;
       protected $Plan;
+      protected $Calendario;
 
-      public function __construct(Usuario $usuario, Dominio $dominio, Ftp $ftp, Correo $correo, Plan $plan)
+      public function __construct(Usuario $usuario, Dominio $dominio, Ftp $ftp, Correo $correo, Plan $plan, Calendario $calendario)
       {
             $this->Usuario = $usuario;
             $this->Dominio = $dominio;
             $this->Ftp = $ftp;
             $this->Correo = $correo;
             $this->Plan = $plan;
+            $this->Calendario = $calendario;
       }
 
       /**
@@ -72,17 +76,26 @@ class AdminUsersController extends \BaseController {
                               $home_dir = $dominio->dominio;
                               if ($this->Ftp->agregarFtp($username, $hostname, $home_dir, Input::get('password'), true))
                               {
-                                    Session::put('message', 'La cuenta esta lista para usarse');
-                                    DB::commit();
+                                    $inicio = Carbon::now();
+                                    $fin = Carbon::now()->addYear();
+                                    $registrador = "t7marketing";
+                                    if ($this->Calendario->agregarCalendario($dominio->dominio, $inicio, $fin, $registrador))
+                                    {
+                                          Session::put('message', 'La cuenta esta lista para usarse');
+                                          DB::commit();
 
-                                    $data = array('dominio' => $dominio->dominio,
-                                          'usuario' => $usuario->email,
-                                          'password' => Input::get('password'));
+                                          $data = array('dominio' => $dominio->dominio,
+                                                'usuario' => $usuario->email,
+                                                'password' => Input::get('password'));
 
-                                    Mail::queue('email.nuevousuario', $data, function($message) use ($usuario) {
-                                          $message->to($usuario->email, $usuario->username)->subject('Configuración de correos T7Marketing');
-                                    });
-                                    return Redirect::to('admin/usuarios');
+                                          Mail::queue('email.nuevousuario', $data, function($message) use ($usuario) {
+                                                $message->to($usuario->email, $usuario->username)->subject('Configuración de correos T7Marketing');
+                                          });
+                                          return Redirect::to('admin/usuarios');
+                                          
+                                    }else{
+                                          Session::put('error', 'Error al agregar el Calendario');
+                                    }
                               }
                               else
                               {

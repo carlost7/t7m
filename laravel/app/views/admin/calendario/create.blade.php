@@ -1,4 +1,4 @@
-@extends('layouts.master')
+  @extends('layouts.master')
 
 @section('title')
 @parent
@@ -46,6 +46,17 @@
 
 @stop
 
-
+@section('scripts')
+<script>
+      $('#Inicio').datepicker({
+            format: 'dd-mm-yyyy'
+      });
+      
+      $('#Fin').datepicker({
+            format: 'dd-mm-yyyy'
+      });
+</script>
+@stop
 
 @section('footer')@stop
+

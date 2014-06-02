@@ -141,7 +141,7 @@ class AdminCorreosController extends \BaseController {
                               Session::flash('error', 'Error al editar el correo');
                         }
                   }
-                  return Redirect::to('correos/' . $id . '/edit')->withErrors($validator)->withInput();
+                  return Redirect::to('admin/correos/' . $id . '/edit')->withErrors($validator)->withInput();
             }
             else
             {

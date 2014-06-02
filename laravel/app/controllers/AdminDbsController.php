@@ -72,7 +72,7 @@ class AdminDbsController extends \BaseController {
                         Session::flash('error', 'Error al crear la base de datos');
                   }
             }
-            return Redirect::to('dbs/create')->withErrors($validator)->withInput();
+            return Redirect::to('admin/dbs/create')->withErrors($validator)->withInput();
       }
 
       /**

@@ -3,7 +3,7 @@
 @section('title')
 @parent
 
-- Correo {{ $correo->correo }} 
+- Calendario {{ $calendario->dominio }} 
 @stop
 
 
@@ -11,9 +11,8 @@
 @section('content')
 <div class="jumbotron">
       <div class="container">
-            <h2>{{ HTML::linkRoute('admin.calendarios.index','Correos') }} > Editar: {{ $correo->correo }}</h2>
-            <p>Agrega la contraseña en el campo de contraseña</p>
-            <p>Modifica el correo de reenvio en el campo de reenvio</p>
+            <h2>{{ HTML::linkRoute('admin.calendarios.index','Calendarios') }} > Editar: {{ $calendario->dominio }}</h2>            
+            
       </div>
 </div>
 <div class="container">

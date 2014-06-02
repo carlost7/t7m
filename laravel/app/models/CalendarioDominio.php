@@ -7,5 +7,5 @@
  */
 class CalendarioDominio extends Eloquent
 {
-      protected $table = 'correos';
+      protected $table = 'calendario_dominios';
 }
