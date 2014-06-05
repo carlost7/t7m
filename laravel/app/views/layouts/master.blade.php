@@ -8,7 +8,7 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
             <title>
                   @section('title')
-                  Primer Server
+                  T7Marketing
                   @show        
             </title>
             <meta name="description" content="">
