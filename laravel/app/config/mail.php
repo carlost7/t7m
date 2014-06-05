@@ -47,7 +47,7 @@ return array(
         | used globally for all e-mails that are sent by your application.
         |
        */
-      'from' => array('address' => 'info@primerserver.com', 'name' => 'Primer Server'),
+      'from' => array('address' => 't7m@t7marketing.com', 'name' => 'T7Marketing'),
       /*
         |--------------------------------------------------------------------------
         | E-Mail Encryption Protocol
@@ -69,7 +69,7 @@ return array(
         | connection. You may also set the "password" value below this one.
         |
        */
-      'username' => 'info@primerserver.com',
+      'username' => 't7m@t7marketing.com',
       /*
         |--------------------------------------------------------------------------
         | SMTP Server Password
@@ -80,7 +80,7 @@ return array(
         | connection so that the application will be able to send messages.
         |
        */
-      'password' => 'gE?XiZg[An5G',
+      'password' => 'WKvE!W!q3',
       /*
         |--------------------------------------------------------------------------
         | Sendmail System Path
