@@ -50,7 +50,7 @@
                                                 <li>{{ Html::linkRoute('admin.planes.index','Planes') ;}}</li> 
                                                 <li>{{ Html::linkRoute('admin.calendarios.index','Calendario Dominios') ;}}</li> 
                                                 @else
-                                                <li>{{ Html::linkRoute('usuario.inicio','Inicio') ;}}</li>
+                                                <li>{{ Html::linkRoute('correos.index','Inicio') ;}}</li>
                                                 @endif                                                
                                                 <li>{{ Html::linkRoute('usuario.logout','Salir') ;}}</li>                                 
                                           </ul>
