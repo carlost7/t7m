@@ -42,7 +42,7 @@ class UsuariosController extends BaseController {
                               else
                               {
                                     Session::put('dominio', Auth::user()->dominio);
-                                    return Redirect::route('usuario.index');
+                                    return Redirect::route('correos.index');
                               }
                         }
                         else
