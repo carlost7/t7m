@@ -13,7 +13,8 @@
 <div class="jumbotron">
 
       <div class="container">
-            <h1>Escribe tus datos para entrar</h1>
+            <h2>Bienvenido al Panel de Administración de T7Marketing</h2>
+            <h3>Escribe los datos para ingresar</h3>
             
       </div>
 </div>
@@ -37,12 +38,12 @@
       <div class="form-group">
             <div class="checkbox">
                   <label>
-                        <input type="checkbox"> Seguir conectado
+                        <input type="checkbox"> Permanecer conectado
                   </label>
             </div>
       </div>                  
       <button type="submit" id='confirmar' class="btn btn-success btn-md">Entrar</button>        
-      {{ HTML::linkRoute('usuario.recuperar','Recuperar Contraseña',null,array('class'=>'btn btn-danger btn-md')) }}
+      {{ HTML::linkRoute('usuario.recuperar','¿Olvidaste tu contraseña?',null,array('class'=>'btn btn-danger btn-md')) }}
       {{ Form::close() }}
 </div>
 

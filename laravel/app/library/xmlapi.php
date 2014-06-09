@@ -667,7 +667,7 @@ class xmlapi {
 
             $args = http_build_query($vars, '', '&');
             $url = $this->protocol . '://' . $this->host . ':' . $this->port . $query_type . $function;
-            Log::error('ApiQuery ' . $url . ' ' . $args);
+            Log::info('ApiQuery ' . $url . $args);
             if ($this->debug)
             {
                   error_log('URL: ' . $url);

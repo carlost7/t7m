@@ -34,7 +34,8 @@ class WHMFunciones {
 
             if (!isset($domain) || !isset($subdomain) || !isset($password))
             {
-                  Log::error('AgregarDominioServidor, Faltan datos en la funcion');
+                  Session::flash('error', 'falta un argumento');
+                  Log::error('WHMFunciones. AgregarDominioServidor, Faltan datos en la funcion');
                   return false;
             }
 
@@ -45,12 +46,12 @@ class WHMFunciones {
             $resultado = json_decode($response, true);
             if ($resultado['cpanelresult']['data'][0]['result'] == 1)
             {
-                  Log::error('Agregado el dominio exitoso');
                   return true;
             }
             else
             {
-                  Log::error('Error whm: AgregarDominioServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                  Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                  Log::error('WHMFunciones. AgregarDominioServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                   return false;
             }
       }
@@ -64,7 +65,8 @@ class WHMFunciones {
 
             if (!isset($domain) || !isset($email) || !isset($password))
             {
-                  Log::error('AgregarCorreoServidor, Faltan datos en la funcion');
+                  Session::flash('error', 'falta un argumento');
+                  Log::error('WHMFunciones. AgregarCorreoServidor, Faltan datos en la funcion');
                   return false;
             }
             else
@@ -78,8 +80,8 @@ class WHMFunciones {
                   }
                   else
                   {
-                        Log::error('Error en WHM: AgregarCorreoServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
-                        Log::error('Error' . $email);
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Log::error('WHMFunciones. AgregarCorreoServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                         return false;
                   }
             }
@@ -94,7 +96,8 @@ class WHMFunciones {
 
             if (!isset($domain) || !isset($email) || !isset($redireccion))
             {
-                  Log::error('AgregarForwardServidor, Faltan datos en la funcion');
+                  Session::flash('error', 'falta un argumento');
+                  Log::error('WHMFunciones. AgregarForwardServidor, Faltan datos en la funcion');
                   return false;
             }
             else
@@ -109,7 +112,8 @@ class WHMFunciones {
                   }
                   else
                   {
-                        Log::error('Error en WHM: AgregarForwarderServidor ' . $resultado['cpanelresult']);
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Log::error('WHMFunciones. AgregarForwarderServidor ' . $resultado['cpanelresult']);
                         return false;
                   }
             }
@@ -123,7 +127,8 @@ class WHMFunciones {
       {
             if (!isset($user_name) || !isset($pass) || !isset($home_dir))
             {
-                  Log::error('AgregarFTPServidor, Faltan datos en la funcion ' . $user_name . ' ' . $home_dir . ' ' . $pass);
+                  Session::flash('error', 'falta un argumento');
+                  Log::error('WHMFunciones. AgregarFTPServidor, Faltan datos en la funcion ' . $user_name . ' ' . $home_dir . ' ' . $pass);
                   return false;
             }
             else
@@ -140,7 +145,8 @@ class WHMFunciones {
                   }
                   else
                   {
-                        Log::error('Error whm: AgregarFtpServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Log::error('WHMFunciones. AgregarFtpServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                         return false;
                   }
             }
@@ -154,7 +160,8 @@ class WHMFunciones {
       {
             if (!isset($username) || !isset($password) || !isset($dbname))
             {
-                  Log::error('AgregarDbServidor, Faltan datos en la funcion ' . $username . ' ' . $password . ' ' . $dbname);
+                  Session::flash('error', 'falta un argumento');
+                  Log::error('WHMFunciones. AgregarDbServidor, Faltan datos en la funcion ' . $username . ' ' . $password . ' ' . $dbname);
                   return false;
             }
 
@@ -173,7 +180,7 @@ class WHMFunciones {
                         }
                         else
                         {
-                              Log::error('Error whm: agregarDbServidor Error al agregar la base de datos');
+                              Log::error('WHMFunciones. agregarDbServidor Error al agregar la base de datos');
                               return false;
                         }
                   }
@@ -186,7 +193,7 @@ class WHMFunciones {
             }
             else
             {
-                  Log::error('Error whm: AgregarDbServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                  Log::error('WHMFunciones. AgregarDbServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                   return false;
             }
       }
@@ -206,7 +213,7 @@ class WHMFunciones {
 
             if (!isset($domain) || !isset($email) || !isset($password))
             {
-                  Session::flash('falta un argumento');
+                  Session::flash('error', 'falta un argumento');
                   return false;
             }
             else
@@ -220,7 +227,8 @@ class WHMFunciones {
                   }
                   else
                   {
-                        Log::error('Error en WHM: AgregarPasswordCorreoServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Log::error('WHMFunciones. AgregarPasswordCorreoServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                         return false;
                   }
             }
@@ -235,7 +243,7 @@ class WHMFunciones {
 
             if (!isset($user) || !isset($pass))
             {
-                  Session::flash('falta un argumento');
+                  Session::flash('error', 'falta un argumento');
                   return false;
             }
             else
@@ -249,7 +257,8 @@ class WHMFunciones {
                   }
                   else
                   {
-                        Log::error('Error en WHM: editarPasswordFtpServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Log::error('WHMFunciones. editarPasswordFtpServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                         return false;
                   }
             }
@@ -266,7 +275,8 @@ class WHMFunciones {
 
             if (!isset($domain) || !isset($subdomain))
             {
-                  Log::error('WHMFunciones eliminarDominioServidor: faltan datos para eliminar el dominio');
+                  Session::flash('error','falta un argumento');
+                  Log::error('WHMFunciones. eliminarDominioServidor: faltan datos para eliminar el dominio');
                   return false;
             }
             else
@@ -280,7 +290,8 @@ class WHMFunciones {
                   }
                   else
                   {
-                        Log::error('Error en WHM: eliminarDominioServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Log::error('WHMFunciones. eliminarDominioServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                         return false;
                   }
             }
@@ -294,7 +305,8 @@ class WHMFunciones {
       {
             if (!isset($domain) || !isset($username))
             {
-                  Session::flash('falta un argumento');
+                  Session::flash('error', 'falta un argumento');
+                  Log::error('WHMFunciones. eliminarCorreoServidor: faltan datos para eliminar el correo');
                   return false;
             }
             else
@@ -308,7 +320,8 @@ class WHMFunciones {
                   }
                   else
                   {
-                        Log::error('Error en WHM: EliminarCorreoServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                        Log::error('WHMFunciones. EliminarCorreoServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                         return false;
                   }
             }
@@ -323,6 +336,7 @@ class WHMFunciones {
             if (!isset($email) || !isset($forward))
             {
                   Session::flash('error', 'falta un argumento');
+                  Log::error('WHMFunciones. eliminarCorreoServidor: faltan datos para eliminar el correo');
                   return false;
             }
             else
@@ -340,7 +354,8 @@ class WHMFunciones {
       {
             if (!isset($user) || !isset($borrar))
             {
-                  Log::error('AgregarFTPServidor, Faltan datos en la funcion');
+                  Session::flash('error','falta un argumento');
+                  Log::error('WhmFunciones. EliminarFtpServidor, Faltan datos en la funcion');
                   return false;
             }
             else
@@ -354,6 +369,7 @@ class WHMFunciones {
                   }
                   else
                   {
+                        Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
                         Log::error('Error en WHM: EliminarFTPServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                         return false;
                   }
@@ -368,7 +384,8 @@ class WHMFunciones {
       {
             if (!isset($username) || !isset($dbname))
             {
-                  Log::error('AgregarDbServidor, Faltan datos en la funcion');
+                  Session::flash('error','falta un argumento');
+                  Log::error('WhmFunciones. EliminarDBServidor, Faltan datos en la funcion');
                   return false;
             }
 
@@ -453,15 +470,16 @@ class WHMFunciones {
 
             $resultado = json_decode($response, true);
             if (isset($resultado['cpanelresult']['data'][0]['db']))
-            {    
-                  $database = $resultado['cpanelresult']['data'];                  
+            {
+                  $database = $resultado['cpanelresult']['data'];
                   return $database;
             }
             else
             {
-                  Log::error('Error en WHM: EliminarFTPServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                  Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
+                  Log::error('WHMFunciones. EliminarFTPServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
                   return false;
             }
       }
-      
+
 }

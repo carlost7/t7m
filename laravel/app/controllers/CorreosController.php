@@ -63,12 +63,12 @@ class CorreosController extends \BaseController {
                   $password = Input::get('password');
                   if ($this->Correo->agregarCorreo($nombre, $correo, $redireccion, $password))
                   {
-                        Session::flash('message', 'Correo Agregado con exito');
+                        Session::flash('message', 'Correo agregado con éxito');
                         return Redirect::to('correos');
                   }
                   else
                   {
-                        Session::flash('error', 'Error al crear el correo');
+                        Session::flash('error', 'Error al agregar el correo');
                   }
             }
             return Redirect::to('correos/create')->withErrors($validator)->withInput();
@@ -188,9 +188,13 @@ class CorreosController extends \BaseController {
             return Validator::make(Input::all(), array(
                         'nombre' => 'required|min:4',
                         'correo' => 'required',
-                        'password' => 'required|min:2',
+                        'password' => 'required|min:9',
+                        'password' => array('regex:/^.*(?=.{8,15})(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).*$/'),
                         'password_confirmation' => 'required|same:password',
                         'redireccion' => 'email',
+                        ), array(
+                        'password.regex' => 'La contraseña debe ser mayor de 9 caracteres. puedes utilizar mayúsculas, minúsculas, números y ¡ # $ *',
+                        'password_confirmation.same' => 'Las contraseñas no concuerdan'
             ));
       }
 

@@ -11,9 +11,8 @@
 @section('content')
 <div class="jumbotron">
       <div class="container">
-            <h2>{{ HTML::linkRoute('correos.index','Correos') }} > Editar: {{ $correo->correo }}</h2>
-            <p>Agrega la contraseña en el campo de contraseña</p>
-            <p>Modifica el correo de reenvio en el campo de reenvio</p>
+            <h2>{{ HTML::linkRoute('correos.index','Correos') }} > Editar {{ $correo->correo }}</h2>
+            <p>Puedes cambiar la contraseña o la cuenta a la que se rediccionarán tus correos. Modifica la información en los campos correspondientes.</p>
       </div>
 </div>
 <div class="container">
@@ -45,11 +44,11 @@
       </div>
       <div class="form-group">
             <label for="password_confirmation">Confirmar Contraseña</label>
-            <input type="password" name="password_confirmation" class="form-control" id="Password_confirmation" placeholder="Confirma tu contraseña">
+            <input type="password" name="password_confirmation" class="form-control" id="Password_confirmation" placeholder="Por favor vuelve a escribir tu contraseña">
       </div>
       <div class="form-group">
-            {{ Form::label('redireccion','Redireccion') }}
-            {{ Form::text('redireccion',null,array('class'=>'form-control')) }}            
+            {{ Form::label('redireccion','Redirección') }}
+            {{ Form::text('redireccion',null,array('class'=>'form-control','placeholder'=>'Escribe el correo al que se rediccionará esta cuenta')) }}            
       </div>                  
       <button type="submit" id='confirmar' class="btn btn-success">Editar Correo</button>
       {{ Form::close() }}

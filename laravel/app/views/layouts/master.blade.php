@@ -36,7 +36,11 @@
                                     <span class="icon-bar"></span>
                               </button>
 
-                              {{ HTML::linkRoute('inicio','T7Marketing',null,array('class'=>'navbar-brand')) ;}}"
+                              @if(Auth::check())
+                              {{ HTML::linkRoute('correos.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
+                              @else
+                              {{ HTML::linkRoute('usuario.login','T7Marketing',null,array('class'=>'navbar-brand')) ;}}                              
+                              @endif
                         </div>
 
                         <div class="navbar-collapse collapse">
@@ -64,17 +68,23 @@
             @if(Session::has('message'))
             <div class="alert alert-success alert-dismissable">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                  {{ Session::get('message') }}
-                  {{ Session::forget('message'); }}        
+                  {{ Session::get('message') }}                  
             </div>                        
             @endif
             @if(Session::has('error'))
             <div class="alert alert-danger alert-dismissable">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                  {{ Session::get('error') }}
-                  {{ Session::forget('error'); }}
+                  {{ Session::get('error') }}                  
             </div>                    
             @endif
+            @if(Session::has('mensaje_servidor'))
+            <div class="alert alert-danger alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  {{ Session::get('mensaje_servidor') }}
+                  {{ Session::forget('mensaje_servidor'); }}
+            </div>                    
+            @endif
+            
 
             @yield('content')
 

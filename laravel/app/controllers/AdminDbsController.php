@@ -29,11 +29,11 @@ class AdminDbsController extends \BaseController {
                         $size = $this->Database->listarQuotaDB($db->nombre);
                         $quotas[$db->nombre] = $size;
                   }
-                  return View::make('admin.dbs.index')->with(array('dbs' => $dbs, 'total' => $total,'quotas'=>$quotas));
+                  return View::make('admin.dbs.index')->with(array('dbs' => $dbs, 'total' => $total, 'quotas' => $quotas));
             }
             else
             {
-                  Session::flash('error' , 'El plan del usuario no tiene bases de datos');
+                  Session::flash('error', 'El plan del usuario no tiene bases de datos');
                   return Redirect::back();
             }
       }
@@ -65,8 +65,8 @@ class AdminDbsController extends \BaseController {
             $validator = $this->getDbsValidator();
             if ($validator->passes())
             {
-                  $username = $dbs->count()+1;
-                  $dbname = $dbs->count()+1;
+                  $username = $dbs->count() + 1;
+                  $dbname = $dbs->count() + 1;
                   $password = Input::get('password');
                   if ($this->Database->agregarDatabase($username, $password, $dbname))
                   {
@@ -133,8 +133,12 @@ class AdminDbsController extends \BaseController {
       protected function getDbsValidator()
       {
             return Validator::make(Input::all(), array(
-                        'password' => 'required|min:2',
+                        'password' => 'required|min:9',
+                        'password' => array('regex:/^.*(?=.{8,15})(?=.*[a-z])(?=.*[A-Z]).*$/'),
                         'password_confirmation' => 'required|same:password',
+                        ), array(
+                        'password.regex' => 'La contraseña debe ser mayor de 9 caracteres. puedes utilizar mayúsculas, minúsculas, números y ¡ # $ *',
+                        'password_confirmation.same' => 'Las contraseñas no concuerdan'
             ));
       }
 
