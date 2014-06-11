@@ -163,9 +163,9 @@ class AdminUsersController extends \BaseController {
       {
             $usuario = $this->Usuario->obtenerUsuario($id);
             $this->Ftp->set_attributes($usuario->dominio);
-            foreach ($usuario->dominio->ftps as $ftp)
-            {
-                  $this->Ftp->eliminarFtp($ftp, true);
+            $ftps = $usuario->dominio->ftps;
+            if($ftps->count()){
+                  $this->Ftp->eliminarFtp($ftps, true);
             }
 
             $this->Correo->set_attributes($usuario->dominio);
