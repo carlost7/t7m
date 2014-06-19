@@ -73,7 +73,7 @@ class AdminUsersController extends \BaseController {
                               $user = explode('.', $dominio->dominio);
                               $username = $user[0];
                               $hostname = 'primerserver.com';
-                              $home_dir = "public_html/".$dominio->dominio;
+                              $home_dir = "public_html/" . $dominio->dominio;
                               if ($this->Ftp->agregarFtp($username, $hostname, $home_dir, Input::get('password'), true))
                               {
                                     $inicio = Carbon::now();
@@ -92,8 +92,9 @@ class AdminUsersController extends \BaseController {
                                                 $message->to($usuario->email, $usuario->username)->subject('Configuración de correos T7Marketing');
                                           });
                                           return Redirect::to('admin/usuarios');
-                                          
-                                    }else{
+                                    }
+                                    else
+                                    {
                                           Session::flash('error', 'Error al agregar el Calendario');
                                     }
                               }
@@ -150,7 +151,21 @@ class AdminUsersController extends \BaseController {
        */
       public function update($id)
       {
-            
+            $validator = $this->getValidatorEditUser();
+
+            if ($validator->passes())
+            {
+
+                  $correo = Input::get('email');
+                  $password = Input::get('password');
+                  if ($this->Usuario->editarUsuario($id, null, $password, $correo, null, null, null))
+                  {
+                        return Redirect::to('admin/usuarios');
+                  }else{
+                        Session::flash('error','error al editar los datos del usuario');
+                  }
+            }
+            return Redirect::back()->withInput()->withErrors($validator->messages());
       }
 
       /**
@@ -164,7 +179,8 @@ class AdminUsersController extends \BaseController {
             $usuario = $this->Usuario->obtenerUsuario($id);
             $this->Ftp->set_attributes($usuario->dominio);
             $ftps = $usuario->dominio->ftps;
-            if(isset($ftps) && $ftps->count()){
+            if (isset($ftps) && $ftps->count())
+            {
                   $this->Ftp->eliminarFtp($ftps, true);
             }
 
@@ -199,9 +215,22 @@ class AdminUsersController extends \BaseController {
                         'dominio' => 'required',
                         'correo' => 'required|email|unique:user,email',
                         'plan' => 'required|exists:planes,nombre',
-            ),array(
-                  'password.regex' => 'La contraseña debe ser mayor de 9 caracteres. puedes utilizar mayúsculas, minúsculas, números y ¡ # $ *',
-                  'password_confirmation.same' => 'Las contraseñas no concuerdan'
+                        ), array(
+                        'password.regex' => 'La contraseña debe ser mayor de 9 caracteres. puedes utilizar mayúsculas, minúsculas, números y ¡ # $ *',
+                        'password_confirmation.same' => 'Las contraseñas no concuerdan'
+            ));
+      }
+
+      protected function getValidatorEditUser()
+      {
+            return Validator::make(Input::all(), array(
+                        'password' => 'min:9',
+                        'password' => array('regex:/^.*(?=.{9,15})(?=.*[a-z])(?=.*[A-Z]).*$/'),
+                        'password_confirmation' => 'same:password',
+                        'correo' => 'email|unique:user,email',
+                        ), array(
+                        'password.regex' => 'La contraseña debe ser mayor de 9 caracteres. puedes utilizar mayúsculas, minúsculas, números y ¡ # $ *',
+                        'password_confirmation.same' => 'Las contraseñas no concuerdan'
             ));
       }
 

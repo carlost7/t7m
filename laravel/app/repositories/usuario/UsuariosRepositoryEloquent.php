@@ -108,7 +108,7 @@ class UsuariosRepositoryEloquent implements UsuariosRepository {
                         }
                         if (isset($password))
                         {
-                              $usuario->password = $password;
+                              $usuario->password = Hash::make($password);
                         }
                         if (isset($correo))
                         {

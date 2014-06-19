@@ -25,7 +25,7 @@
 
       <div class="form-group">
             {{ Form::label('username','Nombre de Usuario') }}
-            {{ Form::text('username',null,array('class'=>'form-control','disabled'=>'disabled')) }}            
+            {{ Form::text('username',null,array('class'=>'form-control','disabled'=>'disabled')) }}
       </div>
       <div class="form-group">
             <label for="password">Contraseña</label>            

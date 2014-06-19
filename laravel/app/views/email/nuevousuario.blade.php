@@ -7,12 +7,7 @@
             <h2>Bienvenido a T7marketing</h2>
             <p>Designamos una cuenta en nuestro panel de control para que puedas crear y gestionar tus correos.</p>
             <br>
-            <p>Haz click en el siguiente link para poder entrar a la aplicación:</p>
             <div>
-                  <h3>
-                        Creamos una cuenta en nuestro panel de control para que puedas crear tus correos
-                  </h3>
-
                   <p>El link para entrar a la aplicación es el siguiente</p>
                   
                   <a href="{{URL::route('inicio')}}">Panel de Usuario - T7Marketing</a>

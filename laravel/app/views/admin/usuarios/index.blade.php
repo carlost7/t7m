@@ -21,7 +21,7 @@
                               <th>Correo</th>
                               <th>Dominio</th>                              
                               <th>Plan</th>
-                              <th>Agregar</th>
+                              <th>Editar</th>
                               <th>Eliminar</th>
                         </tr>
                         @if($usuarios->count())
@@ -34,7 +34,7 @@
                               @if($usuario->dominio != null)
                               <td>{{ $usuario->dominio->dominio }}</td>
                               <td>{{ $usuario->dominio->plan->nombre }}</td>
-                              <td>{{ HTML::link('admin/usuarios/'.$usuario->id.'/edit','Agregar',array('class'=>'btn btn-primary btn-xs')) }}</td>
+                              <td>{{ HTML::link('admin/usuarios/'.$usuario->id.'/edit','Editar',array('class'=>'btn btn-primary btn-xs')) }}</td>
                               @else
                               <td>pendiente</td>
                               <td>pendiente</td>
