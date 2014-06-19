@@ -81,7 +81,7 @@ class AdminUsersController extends \BaseController {
                                     $registrador = "t7marketing";
                                     if ($this->Calendario->agregarCalendario($dominio->dominio, $inicio, $fin, $registrador))
                                     {
-                                          Session::put('message', 'La cuenta esta lista para usarse');
+                                          Session::flash('message', 'La cuenta esta lista para usarse');
                                           DB::commit();
 
                                           $data = array('dominio' => $dominio->dominio,
@@ -94,12 +94,12 @@ class AdminUsersController extends \BaseController {
                                           return Redirect::to('admin/usuarios');
                                           
                                     }else{
-                                          Session::put('error', 'Error al agregar el Calendario');
+                                          Session::flash('error', 'Error al agregar el Calendario');
                                     }
                               }
                               else
                               {
-                                    Session::put('error', 'Error al agregar el FTP');
+                                    Session::flash('error', 'Error al agregar el FTP');
                               }
                         }
                         else

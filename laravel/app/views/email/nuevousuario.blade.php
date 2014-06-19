@@ -15,7 +15,7 @@
 
                   <p>El link para entrar a la aplicación es el siguiente</p>
                   
-                  {{URL::route('inicio','Panel de Usuario - T7Marketing')}}
+                  <a href="{{URL::route('inicio')}}">Panel de Usuario - T7Marketing</a>
 
                   <p>Introduce los siguientes datos de entrada:</p>
                   
