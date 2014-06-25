@@ -37,7 +37,12 @@
                               </button>
 
                               @if(Auth::check())
-                              {{ HTML::linkRoute('correos.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
+                              @if(Auth::user()->is_admin)
+                                    {{ HTML::linkRoute('correos.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
+                              @else
+                                    {{ HTML::linkRoute('admin.usuarios.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
+                              @endif
+                              
                               @else
                               {{ HTML::linkRoute('usuario.login','T7Marketing',null,array('class'=>'navbar-brand')) ;}}                              
                               @endif
