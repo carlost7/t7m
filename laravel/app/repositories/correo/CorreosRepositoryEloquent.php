@@ -23,7 +23,12 @@ class CorreosRepositoryEloquent implements CorreosRepository {
 
       public function listarCorreos()
       {
-            return Correo::where('dominio_id', '=', $this->dominio_model->id)->get();
+            return Correo::where('dominio_id', $this->dominio_model->id)->paginate(10);
+      }
+      
+      public function contarCorreos()
+      {
+            return Correo::where('dominio_id', $this->dominio_model->id)->count();
       }
 
       public function listarQuotas()

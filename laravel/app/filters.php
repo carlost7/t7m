@@ -33,7 +33,7 @@ App::after(function($request, $response) {
 
 Route::filter('auth', function() {
       if (Auth::guest())
-            return Redirect::route('usuario/login');
+            return Redirect::route('usuario.login');
 });
 
 
