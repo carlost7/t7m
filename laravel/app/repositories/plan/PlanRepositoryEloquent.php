@@ -32,10 +32,32 @@ class PlanRepositoryEloquent implements PlanRepository {
             }
       }
 
-      public function agregarPlan($nombre, $dominio, $name_server, $numero_correos, $quota_correos, $numero_ftps, $quota_ftps, $numero_dbs, $quota_dbs)
+      public function agregarPlan($nombre, $dominio, $name_server, $numero_correos, $quota_correos, $numero_ftps, $quota_ftps, $numero_dbs, $quota_dbs, $password)
       {
-            $plan = $this->agregarPlanBase($nombre, $dominio, $name_server, $numero_correos, $quota_correos, $numero_ftps, $quota_ftps, $numero_dbs, $quota_dbs);
-            if ($plan->id)
+
+            /*if ($this->agregarPlanServidor($name_server, $dominio, $password))
+            {
+*/
+                  $plan = $this->agregarPlanBase($nombre, $dominio, $name_server, $numero_correos, $quota_correos, $numero_ftps, $quota_ftps, $numero_dbs, $quota_dbs);
+                  if ($plan->id)
+                  {
+                        return true;
+                  }
+                  else
+                  {
+                        return false;
+                  }
+  /*          }
+            else
+            {
+                  return false;
+            }*/
+      }
+
+      protected function agregarPlanServidor($name_server, $dominio, $password)
+      {
+            $whm = new WHMFunciones(null);
+            if ($whm->agregarCuentaHostServidor($name_server, $dominio, $password))
             {
                   return true;
             }
@@ -43,11 +65,6 @@ class PlanRepositoryEloquent implements PlanRepository {
             {
                   return false;
             }
-      }
-
-      protected function agregarPlanServidor()
-      {
-            
       }
 
       protected function agregarPlanBase($nombre, $dominio, $name_server, $numero_correos, $quota_correos, $numero_ftps, $quota_ftps, $numero_dbs, $quota_dbs)
@@ -91,7 +108,7 @@ class PlanRepositoryEloquent implements PlanRepository {
                   $plan->numero_ftps = $numero_ftps;
                   $plan->quota_ftps = $quota_ftps;
                   $plan->numero_dbs = $numero_dbs;
-                  $plan->quota_dbs = $quota_dbs;                  
+                  $plan->quota_dbs = $quota_dbs;
                   if ($plan->save())
                   {
                         return true;

@@ -51,12 +51,14 @@ class AdminPlanesController extends \BaseController {
                   $numero_ftps = Input::get('numero_ftps');
                   $quota_ftps = Input::get('quota_ftps');
                   $numero_dbs = Input::get('numero_dbs');
-                  $quota_dbs = Input::get('quota_dbs');                  
+                  $quota_dbs = Input::get('quota_dbs');
+                  $password = Input::get('password');
 
-                  if ($this->Plan->agregarPlan($nombre, $dominio, $name_server, $numero_correos, $quota_correos, $numero_ftps, $quota_ftps, $numero_dbs, $quota_dbs))
+                  if ($this->Plan->agregarPlan($nombre, $dominio, $name_server, $numero_correos, $quota_correos, $numero_ftps, $quota_ftps, $numero_dbs, $quota_dbs, $password))
                   {
+                        Session::put('dominio_principal', $dominio);
                         Session::flash('message', 'Plan agregado con exito');
-                        return Redirect::to('admin/planes');
+                        return Redirect::route('admin.usuarios.create');
                   }
                   else
                   {
@@ -184,7 +186,10 @@ class AdminPlanesController extends \BaseController {
                         'numero_ftps' => 'required',
                         'quota_ftps' => 'required',
                         'numero_dbs' => 'required',
-                        'quota_dbs' => 'required',                        
+                        'quota_dbs' => 'required',
+                        'password' => 'required|min:9',
+                        'password' => array('regex:/^.*(?=.{8,15})(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).*$/'),
+                        'password_confirmation' => 'required|same:password',
             ));
       }
 

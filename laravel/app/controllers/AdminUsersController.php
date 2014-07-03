@@ -66,7 +66,15 @@ class AdminUsersController extends \BaseController {
                   if ($usuario->id != null)
                   {
                         $plan = $this->Plan->obtenerPlanNombre(Input::get('plan'));
-                        $dominio = $this->Dominio->agregarDominio(Input::get('dominio'), Input::get('password'), $usuario->id, $plan->id);
+                        $nombre_dominio = Session::get('dominio_principal');
+                        $agregar_servidor = false;
+                        if(!isset($nombre_dominio)){
+                              $nombre_dominio = Input::get('dominio');
+                              $agregar_servidor = true;
+                        }
+                        
+                        $dominio = $this->Dominio->agregarDominio($nombre_dominio, Input::get('password'), $usuario->id, $plan->id , $agregar_servidor);
+                                                
                         if (isset($dominio->id))
                         {
                               $this->Ftp->set_attributes($dominio);
@@ -161,8 +169,10 @@ class AdminUsersController extends \BaseController {
                   if ($this->Usuario->editarUsuario($id, null, $password, $correo, null, null, null))
                   {
                         return Redirect::to('admin/usuarios');
-                  }else{
-                        Session::flash('error','error al editar los datos del usuario');
+                  }
+                  else
+                  {
+                        Session::flash('error', 'error al editar los datos del usuario');
                   }
             }
             return Redirect::back()->withInput()->withErrors($validator->messages());

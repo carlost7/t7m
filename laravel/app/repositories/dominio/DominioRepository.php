@@ -15,7 +15,7 @@ interface DominioRepository {
 
       public function comprobarDominio($dominio);
 
-      public function agregarDominio($nombre_dominio, $password, $usuario_id, $plan_id);
+      public function agregarDominio($nombre_dominio, $password, $usuario_id, $plan_id,$agregar_servidor);
 
       public function eliminarDominio($dominio_model);
 

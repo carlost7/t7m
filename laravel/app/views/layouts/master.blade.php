@@ -38,9 +38,9 @@
 
                               @if(Auth::check())
                               @if(Auth::user()->is_admin)
-                                    {{ HTML::linkRoute('correos.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
-                              @else
                                     {{ HTML::linkRoute('admin.usuarios.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
+                              @else
+                                    {{ HTML::linkRoute('correos.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
                               @endif
                               
                               @else

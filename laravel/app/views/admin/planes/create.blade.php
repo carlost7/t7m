@@ -58,10 +58,27 @@
       <div class="form-group">
             <label for="quota_dbs">Quota dbs</label>
             <input type="text" name="quota_dbs" value="{{ Input::old('quota_ftps')}}" class="form-control" id="Quota_dbs">
-      </div>     
+      </div>
+      <div class="form-group">
+            <label for="password">Contraseña</label>            
+            <div class="input-group">
+                  <input type="password" name="password" class="form-control" id="Password" placeholder="Contraseña">
+                  <span class="input-group-btn">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#ModalPassword" onclick="get_password()">
+                              Generar Contraseña
+                        </button>
+                  </span>                  
+            </div>
+      </div>
+      <div class="form-group">
+            <label for="password_confirmation">Confirmar Contraseña</label>
+            <input type="password" name="password_confirmation" class="form-control" id="Password_confirmation" placeholder="Por favor vuelve a escribir tu contraseña">
+      </div>
       <button type="submit" id='confirmar' class="btn btn-success">Crear Plan</button>
       {{ Form::close() }}
 </div>
+
+@include('layouts.modal_password')
 
 @stop
 

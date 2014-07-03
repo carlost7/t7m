@@ -275,7 +275,7 @@ class WHMFunciones {
 
             if (!isset($domain) || !isset($subdomain))
             {
-                  Session::flash('error','falta un argumento');
+                  Session::flash('error', 'falta un argumento');
                   Log::error('WHMFunciones. eliminarDominioServidor: faltan datos para eliminar el dominio');
                   return false;
             }
@@ -354,7 +354,7 @@ class WHMFunciones {
       {
             if (!isset($user) || !isset($borrar))
             {
-                  Session::flash('error','falta un argumento');
+                  Session::flash('error', 'falta un argumento');
                   Log::error('WhmFunciones. EliminarFtpServidor, Faltan datos en la funcion');
                   return false;
             }
@@ -384,7 +384,7 @@ class WHMFunciones {
       {
             if (!isset($username) || !isset($dbname))
             {
-                  Session::flash('error','falta un argumento');
+                  Session::flash('error', 'falta un argumento');
                   Log::error('WhmFunciones. EliminarDBServidor, Faltan datos en la funcion');
                   return false;
             }
@@ -428,6 +428,10 @@ class WHMFunciones {
         |--------------------------------
        */
 
+      /*
+       * obtiene el uso de un solo correo del servidor
+       */
+
       public function obtenerQuotaCorreoServidor($username, $domain)
       {
             $response = $this->xmlapi->api2_query($this->plan->name_server, 'Email', 'getdiskusage', array('user' => $username, 'domain' => $domain));
@@ -435,6 +439,10 @@ class WHMFunciones {
             $resultado = json_decode($response, true);
             return $resultado['cpanelresult']['data']['0']['diskused'];
       }
+
+      /*
+       * Obtiene el uso de los correos
+       */
 
       public function obtenerQuotaCorreosServidor($domain)
       {
@@ -457,6 +465,10 @@ class WHMFunciones {
             }
       }
 
+      /*
+       * Obtiene el uso de la base de datos
+       */
+
       public function obtenerQuotaDBServidor($dbname)
       {
 
@@ -478,6 +490,43 @@ class WHMFunciones {
             {
                   Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['reason']);
                   Log::error('WHMFunciones. EliminarFTPServidor ' . $resultado['cpanelresult']['data'][0]['reason']);
+                  return false;
+            }
+      }
+
+      /*
+        |----------------------------------
+        |    Agregar cuentas de cpanel
+        |----------------------------------
+       */
+
+      /*
+       * Agregar cuenta al servidor
+       */
+
+      public function agregarCuentaHostServidor($username, $domain_name, $password)
+      {
+            if (!isset($username) || !isset($domain_name) || !isset($password))
+            {
+                  Log::error('WHMFunciones: agregarCuentaHostServidor: no especifico username o domain name o password');
+                  return false;
+            }
+
+            $acctconf = array('username' => $username,
+                  'password' => $password,
+                  'domain' => $password,
+                  'plan'=>'primerse_enterprise');
+
+            $response = $this->xmlapi->createacct($acctconf);
+            $resultado = json_decode($response, true);
+            if ($resultado['cpanelresult']['data'][0]['createacct']['result'] == 1)
+            {
+                  return true;
+            }
+            else
+            {
+                  Session::set('mensaje_servidor', 'El servidor respondio: ' . $resultado['cpanelresult']['data'][0]['createacct']['statusmsg']);
+                  Log::error('Error en WHM: EliminarFTPServidor ' . print_r($resultado,true));
                   return false;
             }
       }

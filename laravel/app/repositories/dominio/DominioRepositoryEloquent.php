@@ -19,12 +19,20 @@ class DominioRepositoryEloquent implements DominioRepository {
        * Agregar el dominio al servidor y luego a la base de datos
        */
 
-      public function agregarDominio($nombre_dominio, $password, $usuario_id, $plan_id)
+      public function agregarDominio($nombre_dominio, $password, $usuario_id, $plan_id, $agregar_servidor)
       {
+            $error = false;
             Db::beginTransaction();
-            if ($this->agregarDominioServidor($nombre_dominio, $plan_id, $password))
+            if ($agregar_servidor)
             {
-                  Log::error('Agregar Dominio');                  
+                  if (!$this->agregarDominioServidor($nombre_dominio, $plan_id, $password))
+                  {
+                        $error = true;
+                  }                  
+            }            
+
+            if (!$error)
+            {
                   $dominio = $this->agregarDominioBase($usuario_id, $nombre_dominio, true, $plan_id);
                   if (isset($dominio->id))
                   {
