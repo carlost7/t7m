@@ -181,7 +181,7 @@ class AdminCorreosController extends \BaseController {
       protected function getCorreosValidator()
       {
             return Validator::make(Input::all(), array(
-                        'nombre' => 'required|min:4',
+                        'nombre' => 'required|min:1',
                         'correo' => 'required',
                         'password' => 'required|min:9',
                         'password' => array('regex:/^.*(?=.{8,15})(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).*$/'),
