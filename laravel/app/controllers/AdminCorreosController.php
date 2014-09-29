@@ -129,9 +129,29 @@ class AdminCorreosController extends \BaseController {
                   $validator = $this->getEditCorreosValidator();
                   if ($validator->passes())
                   {
-                        $redireccion = Input::get('redireccion');
+                        $correos_eliminados = [];
+                        $correos_agregados = [];
+                        $correos_completos = [];
+                        $correos_actuales = [];
+                                                
+                        $actuales = $correo->redireccion;
+                        
+                        $nueva = Input::get('redireccion');
+                        
+                        if(isset($correos_actuales)){
+                              $correos_actuales = explode(',',$actuales);
+                        }
+                        
+                        if(isset($nueva)){
+                              $correos_nuevos = explode(',',$nueva);
+                        }
+                        
+                        $correos_eliminados = array_diff($correos_actuales, $correos_nuevos);
+                        $correos_agregados = array_diff($correos_nuevos, $correos_actuales);
+                        $correos_completos = array_merge(array_intersect($correos_actuales,$correos_nuevos),$correos_agregados);
+                        
                         $password = Input::get('password');
-                        if ($this->Correo->editarCorreo($correo, $password, $redireccion))
+                        if ($this->Correo->editarCorreo($correo, $password, $correos_completos,$correos_agregados, $correos_eliminados))
                         {
                               Session::flash('message', 'Correo editado con exito');
                               return Redirect::to('admin/correos');
@@ -203,7 +223,7 @@ class AdminCorreosController extends \BaseController {
                         'password' => 'min:9',
                         'password' => array('regex:/^.*(?=.{8,15})(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).*$/'),
                         'password_confirmation' => 'same:password',
-                        'redireccion' => 'email',
+                        //'redireccion' => 'email',
                         ), array(
                         'password.regex' => 'La contraseña debe ser mayor de 9 caracteres. puedes utilizar mayúsculas, minúsculas, números y ¡ # $ *',
                         'password_confirmation.same' => 'Las contraseñas no concuerdan'

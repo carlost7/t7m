@@ -19,7 +19,7 @@ interface CorreosRepository {
 
       public function agregarCorreo($nombre, $email, $redireccion = '', $password);
 
-      public function editarCorreo($correo_model, $password, $redireccion);
+      public function editarCorreo($correo_model, $password, $redireccion_actual,$addredireccion, $delredireccion);
 
       public function eliminarCorreo($correo_model);
 

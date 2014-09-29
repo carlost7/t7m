@@ -37,7 +37,17 @@
 
                               <td>{{ $correo->nombre }}</td>
                               <td>{{ HTML::link('admin/correos/'.$correo->id,$correo->correo) }}</td>
+                              @if($correo->redireccion)
+                              <?php $redirecciones = explode(',',$correo->redireccion) ?>
+                              <td>
+                                    @foreach($redirecciones as $redireccion)
+                                    {{ $redireccion }},
+                                    <br />
+                                    @endforeach
+                              </td>
+                              @else
                               <td>{{ $correo->redireccion }}</td>
+                              @endif                                                            
                               <td>{{ $quotas[$correo->correo]['diskused'].'Mb / '.$quotas[$correo->correo]['diskquota'].'Mb'}}</td>
                               <td>{{ HTML::link('admin/correos/'.$correo->id,'Mostrar',array('class'=>'btn btn-primary btn-xs')) }}</td>
                               <td>{{ HTML::link('admin/correos/'.$correo->id.'/edit','Editar',array('class'=>'btn btn-primary btn-xs')) }}</td>

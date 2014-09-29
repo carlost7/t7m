@@ -43,7 +43,16 @@
 
                               <td>{{ $correo->nombre }}</td>
                               <td>{{ HTML::link('correos/'.$correo->id,$correo->correo) }}</td>
+                              @if($correo->redireccion)
+                              {{ $redirecciones = explode(',',$correo->redireccion) }}
+                              <td>
+                                    @foreach($redirecciones as $redireccion)
+                                    {{ $redireccion }},
+                                    @endforeach
+                              </td>
+                              @else
                               <td>{{ $correo->redireccion }}</td>
+                              @endif                                                            
                               <td>{{ $quotas[$correo->correo]['diskused'].'Mb / '.$quotas[$correo->correo]['diskquota'].'Mb'}}</td>
                               <td>{{ HTML::link('https://rs4.websitehostserver.net:2096/?locale=es','Webmail') }}</td>
                               <td>{{ HTML::link('correos/'.$correo->id.'/edit','Editar',array('class'=>'btn btn-primary btn-xs')) }}</td>

@@ -2,7 +2,8 @@
 
 use CorreosRepository as Correo;
 
-class CorreosController extends \BaseController {
+class CorreosController extends \BaseController
+{
 
       protected $Correo;
 
@@ -20,7 +21,7 @@ class CorreosController extends \BaseController {
       public function index()
       {
             $correos = $this->Correo->listarCorreos();
-            $total = $this->Correo->contarCorreos();            
+            $total = $this->Correo->contarCorreos();
             $quotas = $this->Correo->listarQuotas();
             return View::make('correos.index')->with(array('correos' => $correos, 'quotas' => $quotas, 'total' => $total));
       }
@@ -130,6 +131,30 @@ class CorreosController extends \BaseController {
                   if ($validator->passes())
                   {
                         $redireccion = Input::get('redireccion');
+
+                        $correos_eliminados = [];
+                        $correos_agregados = [];
+                        $correos_completos = [];
+                        $correos_actuales = [];
+
+                        $actuales = $correo->redireccion;
+
+                        $nueva = Input::get('redireccion');
+
+                        if (isset($correos_actuales))
+                        {
+                              $correos_actuales = explode(',', $actuales);
+                        }
+
+                        if (isset($nueva))
+                        {
+                              $correos_nuevos = explode(',', $nueva);
+                        }
+
+                        $correos_eliminados = array_diff($correos_actuales, $correos_nuevos);
+                        $correos_agregados = array_diff($correos_nuevos, $correos_actuales);
+                        $correos_completos = array_merge(array_intersect($correos_actuales, $correos_nuevos), $correos_agregados);
+
                         $password = Input::get('password');
                         if ($this->Correo->editarCorreo($correo, $password, $redireccion))
                         {
@@ -192,7 +217,7 @@ class CorreosController extends \BaseController {
                         'password' => array('regex:/^.*(?=.{8,15})(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).*$/'),
                         'password_confirmation' => 'required|same:password',
                         'redireccion' => 'email',
-                        ), array(
+                            ), array(
                         'password.regex' => 'La contraseña debe ser mayor de 9 caracteres. puedes utilizar mayúsculas, minúsculas, números y ¡ # $ *',
                         'password_confirmation.same' => 'Las contraseñas no concuerdan'
             ));

@@ -5,7 +5,8 @@
  *
  * @author carlos
  */
-class CorreosRepositoryEloquent implements CorreosRepository {
+class CorreosRepositoryEloquent implements CorreosRepository
+{
 
       protected $dominio_model;
       protected $plan;
@@ -25,7 +26,7 @@ class CorreosRepositoryEloquent implements CorreosRepository {
       {
             return Correo::where('dominio_id', $this->dominio_model->id)->orderBy('correo', 'asc')->paginate(10);
       }
-      
+
       public function contarCorreos()
       {
             return Correo::where('dominio_id', $this->dominio_model->id)->count();
@@ -142,15 +143,17 @@ class CorreosRepositoryEloquent implements CorreosRepository {
 
       protected function agregarFwdServidor($email, $redireccion)
       {
+            $error = false;
             $whmfuncion = new WHMFunciones($this->plan);
-            if ($whmfuncion->agregarForwardServidor($this->dominio_model->dominio, $email, $redireccion))
+            $correos_redireccion = $redireccion . explode(",", $redireccion);
+            foreach ($correos_redireccion as $correos)
             {
-                  return true;
+                  if (!$whmfuncion->agregarForwardServidor($this->dominio_model->dominio, $email, $redireccion))
+                  {
+                        $error = true;
+                  }
             }
-            else
-            {
-                  return false;
-            }
+            return $error;
       }
 
       /*
@@ -159,7 +162,7 @@ class CorreosRepositoryEloquent implements CorreosRepository {
         |-------------------------------------
        */
 
-      public function editarCorreo($correo_model, $password, $redireccion)
+      public function editarCorreo($correo_model, $password, $redireccion_actual,$addredireccion, $delredireccion)
       {
 
             DB::beginTransaction();
@@ -172,39 +175,25 @@ class CorreosRepositoryEloquent implements CorreosRepository {
                   }
             }
 
-            if (isset($redireccion))
+            foreach ($delredireccion as $redireccion)
             {
-                  if ($correo_model->redireccion != $redireccion)
+                  if (!$this->eliminarForwarderServidor($correo_model->correo, $redireccion))
                   {
-                        if (isset($correo_model->redireccion))
-                        {
-                              if (!$this->eliminarForwarderServidor($correo_model->correo, $correo_model->redireccion))
-                              {
-                                    DB::rollback();
-                                    return false;
-                              }
-                        }
-                        if (!$this->agregarFwdServidor($correo_model->correo, $redireccion))
-                        {
-                              DB::rollback();
-                              return false;
-                        }
-                  }
-            }
-            else
-            {
-                  if (isset($correo_model->redireccion))
-                  {
-                        if (!$this->eliminarForwarderServidor($correo_model->correo, $correo_model->redireccion))
-                        {
-                              DB::rollback();
-                              return false;
-                        }
+                        DB::rollback();
+                        return false;
                   }
             }
 
-
-            if ($this->editarCorreoBase($correo_model, $redireccion))
+            foreach ($addredireccion as $redireccion)
+            {
+                  if (!$this->agregarFwdServidor($correo_model->correo, $redireccion))
+                  {
+                        DB::rollback();
+                        return false;
+                  }
+            }
+            
+            if ($this->editarCorreoBase($correo_model, $redireccion_actual))
             {
                   DB::commit();
                   return true;
