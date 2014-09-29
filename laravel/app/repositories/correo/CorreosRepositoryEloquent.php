@@ -191,7 +191,9 @@ class CorreosRepositoryEloquent implements CorreosRepository
                   }
             }
 
-            if ($this->editarCorreoBase($correo_model, $redireccion_actual))
+            $redireccion = implode('',$redireccion_actual);
+            
+            if ($this->editarCorreoBase($correo_model, $redireccion))
             {
                   DB::commit();
                   return true;
