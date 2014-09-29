@@ -143,16 +143,14 @@ class CorreosRepositoryEloquent implements CorreosRepository
 
       protected function agregarFwdServidor($email, $redireccion)
       {
-            $error = false;
+            $error = true;
             $whmfuncion = new WHMFunciones($this->plan);
-            $correos_redireccion = $redireccion . explode(",", $redireccion);
-            foreach ($correos_redireccion as $correos)
+
+            if (!$whmfuncion->agregarForwardServidor($this->dominio_model->dominio, $email, $redireccion))
             {
-                  if (!$whmfuncion->agregarForwardServidor($this->dominio_model->dominio, $email, $redireccion))
-                  {
-                        $error = true;
-                  }
+                  $error = false;
             }
+
             return $error;
       }
 
@@ -162,7 +160,7 @@ class CorreosRepositoryEloquent implements CorreosRepository
         |-------------------------------------
        */
 
-      public function editarCorreo($correo_model, $password, $redireccion_actual,$addredireccion, $delredireccion)
+      public function editarCorreo($correo_model, $password, $redireccion_actual, $addredireccion, $delredireccion)
       {
 
             DB::beginTransaction();
@@ -192,7 +190,7 @@ class CorreosRepositoryEloquent implements CorreosRepository
                         return false;
                   }
             }
-            
+
             if ($this->editarCorreoBase($correo_model, $redireccion_actual))
             {
                   DB::commit();
