@@ -44,10 +44,11 @@
                               <td>{{ $correo->nombre }}</td>
                               <td>{{ HTML::link('correos/'.$correo->id,$correo->correo) }}</td>
                               @if($correo->redireccion)
-                              {{ $redirecciones = explode(',',$correo->redireccion) }}
+                              <?php $redirecciones = explode(',',$correo->redireccion) ?>
                               <td>
                                     @foreach($redirecciones as $redireccion)
                                     {{ $redireccion }},
+                                    <br />
                                     @endforeach
                               </td>
                               @else
