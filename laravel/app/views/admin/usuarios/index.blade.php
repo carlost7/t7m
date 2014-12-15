@@ -51,6 +51,7 @@
 
                         @endif
                   </table>
+                  {{ $usuarios->links() }}
             </div>
       </div>
 

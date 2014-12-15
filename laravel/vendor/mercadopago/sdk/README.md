@@ -18,7 +18,7 @@
     * Colombia: [https://www.mercadopago.com/mco/herramientas/aplicaciones](https://www.mercadopago.com/mco/herramientas/aplicaciones)
 
 ```php
-require_once "mercadopago.php";
+require_once ('mercadopago.php');
 
 $mp = new MP ("CLIENT_ID", "CLIENT_SECRET");
 ```
@@ -37,15 +37,15 @@ print_r ($accessToken);
 ### Get an existent Checkout preference:
 
 ```php
-$preferenceResult = $mp->get_preference("PREFERENCE_ID");
+$preference = $mp->get_preference("PREFERENCE_ID");
 
-print_r ($preferenceResult);
+print_r ($preference);
 ```
 
 ### Create a Checkout preference:
 
 ```php
-$preference = array (
+$preference_data = array (
     "items" => array (
         array (
             "title" => "Test",
@@ -56,16 +56,16 @@ $preference = array (
     )
 );
 
-$preferenceResult = $mp->create_preference($preference);
+$preference = $mp->create_preference($preference_data);
 
-print_r ($preferenceResult);
+print_r ($preference);
 ```
 <a href="http://developers.mercadopago.com/documentacion/recibir-pagos#glossary">Others items to use</a>
 
 ### Update an existent Checkout preference:
 
 ```php
-$preference = array (
+$preference_data = array (
     "items" => array (
         array (
             "title" => "Test Modified",
@@ -76,9 +76,9 @@ $preference = array (
     )
 );
 
-$preferenceResult = $mp->update_preference("PREFERENCE_ID", $preference);
+$preference = $mp->update_preference("PREFERENCE_ID", $preference_data);
 
-print_r ($preferenceResult);
+print_r ($preference);
 ```
 
 <a name="payments"></a>
@@ -108,7 +108,7 @@ print_r ($searchResult);
     * Colombia: [https://www.mercadopago.com/mco/herramientas/notificaciones](https://www.mercadopago.com/mco/herramientas/notificaciones)
 
 ```php
-require_once "mercadopago.php";
+require_once ('mercadopago.php');
 
 header("Content-type: text/plain");
 
@@ -138,3 +138,26 @@ $result = $mp->refund_payment($_GET["ID"]);
 print_r ($result);
 ```
 <a href="http://developers.mercadopago.com/documentacion/devolucion-y-cancelacion">About Cancel & Refund </a>
+
+### Generic resources methods
+
+You can access any other resource from the MercadoPago API using the generic methods:
+
+```php
+// Get a resource, with optional URL params. Also you can disable authentication for public APIs
+$mp->get ("/resource/uri", [params], [authenticate=true]);
+
+// Create a resource with "data" and optional URL params.
+$mp->post ("/resource/uri", data, [params]);
+
+// Update a resource with "data" and optional URL params.
+$mp->put ("/resource/uri", data, [params]);
+```
+
+ For example, if you want to get the Sites list (no params and no authentication):
+
+```php
+$sites = $mp->get ("/sites", null, false);
+
+print_r ($sites);
+```

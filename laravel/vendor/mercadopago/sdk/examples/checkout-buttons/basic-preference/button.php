@@ -1,20 +1,21 @@
 <?php
 require_once "../../../lib/mercadopago.php";
 
-$mp = new MP("CLIENT_ID", "CLIENT_SECRET");
+$mp = new MP("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
 
-$preference = array(
+$preference_data = array(
     "items" => array(
         array(
-            "title" => "sdk-php",
+            "title" => "Title of what you are paying for",
+            "currency_id" => "USD",
+            "category_id" => "Category",
             "quantity" => 1,
-            "currency_id" => "ARS",
             "unit_price" => 10.2
         )
     )
 );
 
-$preferenceResult = $mp->create_preference($preference);
+$preference = $mp->create_preference($preference_data);
 ?>
 
 <!doctype html>
@@ -23,7 +24,7 @@ $preferenceResult = $mp->create_preference($preference);
         <title>MercadoPago SDK - Create Preference and Show Checkout Example</title>
     </head>
     <body>
-       	<a href="<?php echo $preferenceResult["response"]["init_point"]; ?>" name="MP-Checkout" class="orange-ar-m-sq-arall">Pay</a>
+       	<a href="<?php echo $preference["response"]["init_point"]; ?>" name="MP-Checkout" class="orange-ar-m-sq-arall">Pay</a>
         <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
     </body>
 </html>

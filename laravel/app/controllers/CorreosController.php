@@ -156,7 +156,7 @@ class CorreosController extends \BaseController
                         $correos_completos = array_merge(array_intersect($correos_actuales, $correos_nuevos), $correos_agregados);
 
                         $password = Input::get('password');
-                        if ($this->Correo->editarCorreo($correo, $password, $redireccion))
+                        if ($this->Correo->editarCorreo($correo, $password, $redireccion_actual,$addredireccion, $delredireccion))
                         {
                               Session::flash('message', 'Correo editado con exito');
                               return Redirect::to('correos');
