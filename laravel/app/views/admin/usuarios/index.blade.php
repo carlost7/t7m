@@ -29,8 +29,8 @@
                         @foreach($usuarios as $usuario)
                         <tr>
 
-                              <td>{{ $usuario->username }}</td>
-                              <td>{{ HTML::link('admin/usuarios/'.$usuario->id,$usuario->email) }}</td>
+                              <td>{{ HTML::link('admin/usuarios/'.$usuario->id,$usuario->username) }}</td>
+                              <td>{{ $usuario->email }}</td>
                               @if($usuario->dominio != null)
                               <td>{{ $usuario->dominio->dominio }}</td>
                               <td>{{ $usuario->dominio->plan->nombre }}</td>
