@@ -35,15 +35,19 @@ class UsuariosController extends BaseController {
 
                         if (Auth::attempt($credentials))
                         {
-                              if (Auth::user()->is_admin)
-                              {
-                                    return Redirect::to('admin/usuarios');
-                              }
-                              else
-                              {
-                                    Session::put('dominio', Auth::user()->dominio);
-                                    return Redirect::route('correos.index');
-                              }
+
+                              switch (Auth::user()->is_admin) {
+                                    case 0:
+                                          Session::put('dominio', Auth::user()->dominio);
+                                          return Redirect::route('correos.index');
+                                          break;
+                                    case 1:
+                                          return Redirect::to('admin/usuarios');
+                                          break;
+                                    case 2:
+                                          return Redirect::route('portafolio.index');
+                                          break;
+                              }                              
                         }
                         else
                         {
@@ -78,7 +82,6 @@ class UsuariosController extends BaseController {
             return View::make('usuarios.problemas');
       }
 
-      
       /*
        * Funcion para recuperar contraseña perdida
        */
@@ -114,9 +117,9 @@ class UsuariosController extends BaseController {
                   if ($validator->passes())
                   {
                         $credentials = Input::only('email'
-                                    , 'password'
-                                    , 'password_confirmation') + compact("token");
-                        $response = $this->resetPassword($credentials);
+                                        , 'password'
+                                        , 'password_confirmation') + compact("token");
+                        $response    = $this->resetPassword($credentials);
 
                         if ($response === Password::PASSWORD_RESET)
                         {
@@ -150,9 +153,9 @@ class UsuariosController extends BaseController {
       protected function resetPassword($credentials)
       {
             return Password::reset($credentials, function($user, $pass) {
-                        $user->password = Hash::make($pass);
-                        $user->save();
-                  });
+                          $user->password = Hash::make($pass);
+                          $user->save();
+                    });
       }
 
       /*
@@ -162,8 +165,8 @@ class UsuariosController extends BaseController {
       protected function getPasswordRemindResponse()
       {
             return Password::remind(Input::only('email'), function($message, $user) {
-                        $message->subject('Recuperación de contraseña');
-                  });
+                          $message->subject('Recuperación de contraseña');
+                    });
       }
 
       /*
@@ -183,7 +186,7 @@ class UsuariosController extends BaseController {
       {
 
             return Validator::make(Input::all(), array(
-                        'correo' => 'required|email',
+                        'correo'   => 'required|email',
                         'password' => 'required',
             ));
       }
@@ -195,8 +198,8 @@ class UsuariosController extends BaseController {
       protected function getResetValidator()
       {
             return Validator::make(Input::all(), array(
-                        'email' => 'required|email',
-                        'password' => 'required',
+                        'email'                 => 'required|email',
+                        'password'              => 'required',
                         'password_confirmation' => 'required|same:password',
             ));
       }
@@ -204,8 +207,8 @@ class UsuariosController extends BaseController {
       protected function getCambioPasswordValidator()
       {
             return Validator::make(Input::all(), array(
-                        'old_password' => 'required',
-                        'password' => 'required',
+                        'old_password'          => 'required',
+                        'password'              => 'required',
                         'password_confirmation' => 'required|same:password',
             ));
       }
@@ -213,17 +216,17 @@ class UsuariosController extends BaseController {
       protected function getCambioCorreoValidator()
       {
             return Validator::make(Input::all(), array(
-                        'password' => 'required',
+                        'password'  => 'required',
                         'old_email' => 'required|email',
                         'new_email' => 'required|email',
             ));
       }
-      
+
       public function obtenerPass()
       {
-            $length = 9;
+            $length         = 9;
             $available_sets = 'luds';
-            $sets = array();
+            $sets           = array();
             if (strpos($available_sets, 'l') !== false)
             {
                   $sets[] = 'abcdefghjkmnpqrstuvwxyz';
@@ -242,17 +245,15 @@ class UsuariosController extends BaseController {
             }
 
 
-            $all = '';
+            $all      = '';
             $password = '';
-            foreach ($sets as $set)
-            {
+            foreach ($sets as $set) {
                   $password .= $set[array_rand(str_split($set))];
                   $all .= $set;
             }
 
             $all = str_split($all);
-            for ($i = 0; $i < $length - count($sets); $i++)
-            {
+            for ($i = 0; $i < $length - count($sets); $i++) {
                   $password .= $all[array_rand($all)];
             }
 

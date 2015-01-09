@@ -106,6 +106,7 @@ return array(
             'Illuminate\View\ViewServiceProvider',
             'Illuminate\Workbench\WorkbenchServiceProvider',
             'RepositoriesServiceProvider',
+            'Way\Generators\GeneratorsServiceProvider'
       ),
       /*
         |--------------------------------------------------------------------------

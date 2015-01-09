@@ -93,6 +93,12 @@ Route::group(array('before' => 'auth'), function()
 
             Route::resource('calendarios', 'AdminCalendarioDominiosController');
       });
+      
+      Route::group(array('before' => 'is_project'), function()
+      {
+
+            Route::resource('portafolio','PortafoliosController');
+      });
 });
 
 

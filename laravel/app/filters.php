@@ -91,6 +91,13 @@ Route::filter('is_admin', function() {
       }
 });
 
+Route::filter('is_project', function() {
+      if (!Auth::user()->is_admin == 2)
+      {
+            return Redirect::to('inicio');
+      }
+});
+
 
 /*
   |-------------------------------------------
