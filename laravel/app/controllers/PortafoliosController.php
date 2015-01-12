@@ -44,12 +44,12 @@ class PortafoliosController extends \BaseController {
                   {
                         if (isset($thumb))
                         {
-                              $thumb_name = $portafolio->proyecto . "_thumb." . $thumb->getClientOriginalExtension();
+                              $thumb_name = Str::slug($portafolio->proyecto) . "_thumb." . $thumb->getClientOriginalExtension();
                               $thumb->move("img/thumb", $thumb_name);
                         }
                         if (isset($full))
                         {
-                              $full_name = $portafolio->proyecto . "_" . $portafolio->id . "." . $thumb->getClientOriginalExtension();
+                              $full_name = Str::slug($portafolio->proyecto) . "_" . $portafolio->id . "." . $thumb->getClientOriginalExtension();
                               $full->move("img/fulls", $full_name);
                         }
 
@@ -118,7 +118,7 @@ class PortafoliosController extends \BaseController {
                               if(isset($portafolio->thumb_name)){
                                     $thumb_name = $portafolio->thumb_name;
                               }else{
-                                    $thumb_name = $portafolio->proyecto . "_thumb." . $thumb->getClientOriginalExtension();
+                                    $thumb_name = Str::slug($portafolio->proyecto) . "_thumb." . $thumb->getClientOriginalExtension();
                               }
                               
                               $thumb->move("img/thumb", $thumb_name);
@@ -128,7 +128,7 @@ class PortafoliosController extends \BaseController {
                               if(isset($portafolio->full_name)){
                                     $full_name = $portafolio->full_name;
                               }else{
-                                    $full_name = $portafolio->proyecto . "_" . $portafolio->id . "." . $thumb->getClientOriginalExtension();
+                                    $full_name = Str::slug($portafolio->proyecto) . "_" . $portafolio->id . "." . $thumb->getClientOriginalExtension();
                               }                              
                               $full->move("img/fulls", $full_name);
                         }
