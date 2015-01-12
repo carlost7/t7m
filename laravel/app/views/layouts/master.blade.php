@@ -37,8 +37,11 @@
                               </button>
 
                               @if(Auth::check())
-                              @if(Auth::user()->is_admin)
+                              @if(Auth::user()->is_admin == 1)
+                                    
                                     {{ HTML::linkRoute('admin.usuarios.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
+                              @elseif(Auth::user()->is_admin == 2)
+                                    {{ HTML::linkRoute('portafolio.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
                               @else
                                     {{ HTML::linkRoute('correos.index','T7Marketing',null,array('class'=>'navbar-brand')) ;}}
                               @endif
@@ -54,10 +57,12 @@
                                     <li class="dropdown">
                                           <a href="#" class='dropdown-toggle' data-toggle='dropdown'>{{Auth::user()->email}} <b class="caret"></b></a>
                                           <ul class="dropdown-menu">
-                                                @if(Auth::user()->is_admin)
+                                                @if(Auth::user()->is_admin == 1)
                                                 <li>{{ Html::linkRoute('admin.usuarios.index','Usuarios') ;}}</li> 
                                                 <li>{{ Html::linkRoute('admin.planes.index','Planes') ;}}</li> 
                                                 <li>{{ Html::linkRoute('admin.calendarios.index','Calendario Dominios') ;}}</li> 
+                                                @elseif(Auth::user()->is_admin == 2)
+                                                <li>{{ Html::linkRoute('portafolio.index','Portafolio') ;}}</li> 
                                                 @else
                                                 <li>{{ Html::linkRoute('correos.index','Inicio') ;}}</li>
                                                 @endif                                                
