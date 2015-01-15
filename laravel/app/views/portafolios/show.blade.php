@@ -18,7 +18,8 @@
                   <li>Proyecto: {{$portafolio->proyecto}}</li>
                   <li>url: {{$portafolio->url}}</li>
                   <li>Descripción: {{$portafolio->descripcion}}</li>
-                  <li>categoria: {{$portafolio->categoria}}</li>                  
+                  <li>Prioridad: {{$portafolio->prioridad}}</li>
+                  <li>categoria: {{json_encode($portafolio->categoria)}}</li>                  
                   <li>thumb: {{ HTML::Image('img/thumb/'.$portafolio->thumb_name)}}</li>                  
                   <li>full: {{ HTML::Image('img/fulls/'.$portafolio->full_name)}}</li>                  
             </ul>

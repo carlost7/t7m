@@ -39,7 +39,7 @@ class PortafoliosController extends \BaseController {
             if ($validator->passes())
             {
                   $portafolio = new Portafolio;
-
+                  $portafolio->imagen = Str::slug($portafolio->proyecto);
                   if ($portafolio->save())
                   {
                         if (isset($thumb))

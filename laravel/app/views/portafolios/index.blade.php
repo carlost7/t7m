@@ -21,6 +21,7 @@ Portafolios
                               <th>Proyecto</th>
                               <th>url</th>
                               <th>Descripción</th>
+                              <th>prioridad</th>
                               <th>categoria</th>
                               <th>Editar</th>
                               <th>Eliminar</th>
@@ -30,6 +31,7 @@ Portafolios
                               <td>{{ HTML::LinkRoute("portafolio.show",$portafolio->proyecto,$portafolio->id) }}</td>
                               <td>{{ $portafolio->url }}</td>
                               <td>{{ $portafolio->descripcion }}</td>
+                              <td>{{ $portafolio->prioridad }}</td>
                               <td>{{ json_encode($portafolio->categoria) }}</td>
                               <td>{{ HTML::linkRoute('portafolio.edit','Editar',$portafolio->id) }}</td>
                               <td>

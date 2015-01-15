@@ -34,6 +34,10 @@
                               {{ Form::text('url', Input::old('url'), array('placeholder' => 'http://ejemplo.com', 'class'=>'form-control')) }}
                         </div>
                         <div class="form-group">
+                              {{ Form::label('prioridad', 'Prioridad') }}
+                              {{ Form::text('prioridad', Input::old('prioridad'), array('placeholder' => 'prioridad', 'class'=>'form-control')) }}
+                        </div>
+                        <div class="form-group">
                               {{ Form::label('thumb','Agregar Thumb') }}
                               {{ Form::file('thumb') }}
                         </div>

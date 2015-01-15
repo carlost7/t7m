@@ -5,34 +5,37 @@ use LaravelBook\Ardent\Ardent;
 class Portafolio extends Ardent {
 
       // Add your validation rules here
-      public static $rules = [
+      public static $rules                  = [
           'proyecto'    => 'required',
           'imagen'      => '',
           'thumb'       => '',
           'url'         => 'url',
           'descripción' => '',
-          'categoria'   => 'required',          
+          'categoria'   => 'required',
+          'prioridad'   => ''
       ];
       // Don't forget to fill this array
-      protected $fillable  = ['proyecto', 'imagen', 'thumb', 'url', 'descripcion', 'categoria'];
-      protected $table = 'portafolios';
+      protected $fillable                   = ['proyecto', 'imagen', 'thumb', 'url', 'descripcion', 'categoria','prioridad'];
+      protected $table                      = 'portafolios';
       public $autoHydrateEntityFromInput    = true;
       public $forceEntityHydrationFromInput = true;
       public $autoPurgeRedundantAttributes  = true;
-      
-      public function setCategoriaAttribute(Array $categorias){
-            
-            if(!is_array($categorias)){
+
+      public function setCategoriaAttribute(Array $categorias)
+      {
+
+            if (!is_array($categorias))
+            {
                   $this->attributes['categoria'] = "";
             }
-            
+
             $this->attributes['categoria'] = json_encode($categorias);
       }
-      
-      public function getCategoriaAttribute(){
-            
+
+      public function getCategoriaAttribute()
+      {
+
             return json_decode($this->attributes['categoria']);
       }
-      
 
 }
