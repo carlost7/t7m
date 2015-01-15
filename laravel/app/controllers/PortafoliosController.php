@@ -9,7 +9,7 @@ class PortafoliosController extends \BaseController {
        */
       public function index()
       {
-            $portafolios = Portafolio::all();
+            $portafolios = Portafolio::orderBy('proyecto')->get();
 
             return View::make('portafolios.index', compact('portafolios'));
       }
