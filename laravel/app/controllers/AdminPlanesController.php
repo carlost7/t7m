@@ -111,7 +111,7 @@ class AdminPlanesController extends \BaseController {
             $plan = $this->Plan->mostrarPlan($id);
             if ($plan->id)
             {
-                  $validator = $this->getValidatorPlan();
+                  $validator = $this->getValidatorPlanEdit();
                   if ($validator->passes())
                   {
                         $nombre = Input::get('nombre');
@@ -190,6 +190,21 @@ class AdminPlanesController extends \BaseController {
                         'password' => 'required|min:9',
                         'password' => array('regex:/^.*(?=.{8,15})(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).*$/'),
                         'password_confirmation' => 'required|same:password',
+            ));
+      }
+      
+      protected function getValidatorPlanEdit()
+      {
+            return Validator::make(Input::all(), array(
+                        'nombre' => 'required',
+                        'domain' => 'required',
+                        'name_server' => 'required',
+                        'numero_correos' => 'required',
+                        'quota_correos' => 'required',
+                        'numero_ftps' => 'required',
+                        'quota_ftps' => 'required',
+                        'numero_dbs' => 'required',
+                        'quota_dbs' => 'required',                        
             ));
       }
 
