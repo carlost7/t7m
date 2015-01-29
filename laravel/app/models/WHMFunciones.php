@@ -445,12 +445,11 @@ class WHMFunciones {
        */
 
       public function obtenerQuotaCorreosServidor($domain)
-      {    
-            $response = $this->xmlapi->api2_query($this->plan->name_server, 'Email', 'listpopswithdisk');
-            dd($response);
+      {
+            $response = $this->xmlapi->api2_query($this->plan->name_server, 'Email', 'listpopswithdisk', array('domain' => $domain));
+
             $resultado = json_decode($response, true);
             $quotas = array();
-            dd($resultado);
             if ($resultado['cpanelresult']['data'] != null)
             {
                   foreach ($resultado['cpanelresult']['data'] as $result)
