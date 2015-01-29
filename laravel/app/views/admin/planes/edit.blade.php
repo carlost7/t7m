@@ -70,6 +70,10 @@
                   </span>                  
             </div>
       </div>
+      <div class="form-group">
+            <label for="password_confirmation">Confirmar Contraseña</label>
+            <input type="password" name="password_confirmation" class="form-control" id="Password_confirmation" placeholder="Por favor vuelve a escribir tu contraseña">
+      </div>
       <button type="submit" id='confirmar' class="btn btn-success">Editar Plan</button>
       {{ Form::close() }}
 </div>
