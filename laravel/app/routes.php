@@ -89,13 +89,15 @@ Route::group(array('before' => 'auth'), function() {
             Route::resource('calendarios', 'AdminCalendarioDominiosController');
 
             Route::get('crear_correos', function() {
-                  $quotas = CorreosRepositoryEloquent::listarQuotas();                  
-                  
+                  $correo = new CorreosRepositoryEloquent(Session::get('dominio_usuario'));
+
+                  $quotas = $correo->listarQuotas();
+
                   foreach ($quotas as $correo){
-                        
+
                   }
                   dd($quotas);
-                  
+
                   $nombre = Input::get('nombre');
                   if (strpos(Input::get('correo'), '@'))
                   {
@@ -114,8 +116,8 @@ Route::group(array('before' => 'auth'), function() {
                   {
                         Session::flash('error', 'Error al crear el correo');
                   }
-                  
-                  
+
+
             });
       });
 
