@@ -58,7 +58,18 @@
       <div class="form-group">
             <label for="quota_dbs">Quota dbs</label>
             <input type="text" name="quota_dbs" value="{{ $plan->quota_dbs }}" class="form-control" id="Quota_dbs">
-      </div>      
+      </div> 
+      <div class="form-group">
+            <label for="password">Contraseña</label>            
+            <div class="input-group">
+                  <input type="password" name="password" class="form-control" id="Password" placeholder="Contraseña">
+                  <span class="input-group-btn">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#ModalPassword" onclick="get_password()">
+                              Generar Contraseña
+                        </button>
+                  </span>                  
+            </div>
+      </div>
       <button type="submit" id='confirmar' class="btn btn-success">Editar Plan</button>
       {{ Form::close() }}
 </div>
