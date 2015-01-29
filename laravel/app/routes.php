@@ -98,7 +98,9 @@ Route::group(array('before' => 'auth'), function() {
                   foreach ($quotas as $correo){
 
                   }
-                  dd($quotas);
+                  foreach($quotas as $key=>$value){
+                        dd($key);
+                  }
 
                   $nombre = Input::get('nombre');
                   if (strpos(Input::get('correo'), '@'))
