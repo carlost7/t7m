@@ -90,38 +90,25 @@ Route::group(array('before' => 'auth'), function() {
 
             Route::get('crear_correos', function() {
                   $dominio = Session::get('dominio_usuario');
-                  $correo = new CorreosRepositoryEloquent;
+                  $correo  = new CorreosRepositoryEloquent;
                   $correo->set_attributes(($dominio));
 
                   $quotas = $correo->listarQuotas();
 
-                  foreach ($quotas as $correo){
-
+                  foreach ($quotas as $key => $value) {
+                        $correo         = new Correo;
+                        $correo->dominio()->associate($dominio);
+                        $correo->nombre = $key;
+                        $correo->correo = $key;
+                        if ($correo->save())
+                        {
+                              echo "creado " . $key . "<br/>";
+                        }
+                        else
+                        {
+                              echo "no se creo " . $key . "<br/>";
+                        }
                   }
-                  foreach($quotas as $key=>$value){
-                        dd($key);
-                  }
-
-                  $nombre = Input::get('nombre');
-                  if (strpos(Input::get('correo'), '@'))
-                  {
-                        Session::flash('error', 'El campo correo solo debe contener el nombre de usuario');
-                        return Redirect::to('admin/correos/create')->withInput();
-                  }
-                  $correo = Input::get('correo') . '@' . Session::get('dominio_usuario')->dominio;
-                  $redireccion = Input::get('redireccion');
-                  $password = Input::get('password');
-                  if ($this->Correo->agregarCorreo($nombre, $correo, $redireccion, $password))
-                  {
-                        Session::flash('message', 'Correo Agregado con exito');
-                        return Redirect::to('admin/correos');
-                  }
-                  else
-                  {
-                        Session::flash('error', 'Error al crear el correo');
-                  }
-
-
             });
       });
 
