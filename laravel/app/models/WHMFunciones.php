@@ -450,6 +450,7 @@ class WHMFunciones {
 
             $resultado = json_decode($response, true);
             $quotas = array();
+            dd($resultado);
             if ($resultado['cpanelresult']['data'] != null)
             {
                   foreach ($resultado['cpanelresult']['data'] as $result)
