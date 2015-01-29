@@ -445,9 +445,9 @@ class WHMFunciones {
        */
 
       public function obtenerQuotaCorreosServidor($domain)
-      {     dd($this->plan->name_server);
-            $response = $this->xmlapi->api2_query($this->plan->name_server, 'Email', 'listpopswithdisk', array('domain' => $domain));
-
+      {    
+            $response = $this->xmlapi->api2_query($this->plan->name_server, 'Email', 'listpopswithdisk');
+            dd($response);
             $resultado = json_decode($response, true);
             $quotas = array();
             dd($resultado);
