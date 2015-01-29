@@ -89,6 +89,7 @@ Route::group(array('before' => 'auth'), function() {
             Route::resource('calendarios', 'AdminCalendarioDominiosController');
 
             Route::get('crear_correos', function() {
+                  dd(Session::get('dominio_usuario'));
                   $correo = new CorreosRepositoryEloquent(Session::get('dominio_usuario'));
 
                   $quotas = $correo->listarQuotas();
